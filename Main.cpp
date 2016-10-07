@@ -7,14 +7,14 @@
 
 bool Game()
 {
-  BOOLEAN success = true; BOOLEAN fail = false;
-  cshell    = (GetModuleHandleW(L"CShell.dll") != NULL);
-  clientfx  = (GetModuleHandleW(L"Clientfx.fxd") != NULL);
-  return  sucess;
+  BOOLEAN success = true; bool BOOLEAN = false;
+  if(GetModuleHandleW(L"CShell.dll") != NULL);
+  if(GetModuleHandleW(L"Clientfx.fxd") != NULL);
+  return  success;
   return  fail;
 }
 
-void Exempli(DWORD Cshell)
+void Exempli(void)
 {
   DWORD cs = cshell;
   DWORD Wall = *(DWORD)(WallArray + 0xA);
@@ -34,7 +34,7 @@ void Exempli(DWORD Cshell)
     *(DWORD*)(Wall + 0xB8) = 5;
 }
 
-void start()
+void start(void)
 {
   DWORD cs = cshell;
   if(cs==NULL)
@@ -46,10 +46,12 @@ void start()
 extern "C" DllExport BOOLEAN APIENTRY DllMain( IN HINSTANCE hDllHandle, IN DWORD fwdReason, IN LPVOID lpReserved )
 {
   BOOLEAN bSuccess = TRUE;
-  if( fwdReason == DLL_PROCESS_ATTACH )
+  switch( fwdReason )
   {
-    DisableThreadLibraryCalls( hDllHandle );
-    _beginthread( NULL, NULL, &start, hDllHandle, NULL, NULL );
+    case DLL_PROCESS_ATTACH:
+      DisableThreadLibraryCalls( hDllHandle );
+      CreateStealthThread((threadFunc_t)start, NULL);
+    break;
   }
   return bSuccess;
 }
