@@ -4,12 +4,10 @@
 class project
 {
   public:
-    BOOL myProject();
-    void main(void);
-    void func(void);
-    
-    int ady = true;
-    int dy = true;
+    bool Project();
+    void main();
+    void function();
+
 }
 
 #endif my_project
