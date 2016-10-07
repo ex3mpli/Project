@@ -12,16 +12,16 @@ bool Game()
 
 void Exempli(void)
 {
-  DWORD cs = cshell;
-  DWORD Wall = *(DWORD)(WallArray + 0xA);
+  DWORD cshell = (DWORD)GetModuleHandleW(L"CShell.dll");
+  DWORD Wall = *(DWORD*)(WallArray + 0xA);
   
   int wall, cghost = 0;
   
   if(GetAsyncKeyState(VK_f2) &1) wall=!wall;
   if(wall)
-    memcpy((void*)Wall + 0xA4), "\x01\x01\x01\x01", 4;
+    memcpy((void*)(Wall + 0xA4), "\x01\x01\x01\x01", 4);
   else
-    memcpy((void*)Wall + 0xA4), "\x00\x00\x00\x00", 4;
+    memcpy((void*)(Wall + 0xA4), "\x00\x00\x00\x00", 4);
   
   if(GetAsyncKeyState(VK_f3) &1) cghost=!cghost;
   if(cghost)
@@ -46,7 +46,7 @@ extern "C" DllExport BOOLEAN APIENTRY DllMain( IN HINSTANCE hDllHandle, IN DWORD
   {
     case DLL_PROCESS_ATTACH:
       DisableThreadLibraryCalls( hDllHandle );
-      CreateStealthThread((threadFunc_t)start, NULL);
+      _beginthreadex(NULL, NULL,start, NULL, NULL, NULL);
     break;
   }
   return bSuccess;
