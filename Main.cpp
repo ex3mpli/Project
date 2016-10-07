@@ -29,9 +29,9 @@ void Exempli(void)
   
   if(GetAsyncKeyState(VK_f3) &1) cghost=!cghost;
   if(cghost)
-    *(DWORD*)(Wall + 0xB8) = 14;
-  else
     *(DWORD*)(Wall + 0xB8) = 5;
+  else
+    *(DWORD*)(Wall + 0xB8) = 14;
 }
 
 void start(void)
