@@ -16,7 +16,7 @@ bool Game()
 
 void Exempli(DWORD Cshell)
 {
-  Cshell = (DWORD)GetModuleHandleW(L"CShell.dll");
+  DWORD cs = cshell;
   DWORD Wall = *(DWORD)(WallArray + 0xA);
   
   int wall, cghost = 0;
