@@ -1,11 +1,14 @@
 #include <windows.h>
+#include <process.h>
 
 #define DllExport   __declspec(dllexport)
 #define WallArray   0x467F74
 
+int wall, cghost = 0;
+
 bool Game()
 {
-  if(GetModuleHandleA("CShell.dll") != NULL && GetModuleHandleA("Clientfx.fxd") != NULL);
+  if(GetModuleHandleA("CShell.dll") != NULL && GetModuleHandleA("Clientfx.fxd") != NULL)
   return  true;
   return  false;
 }
@@ -15,15 +18,13 @@ void Exempli(void)
   DWORD cshell = (DWORD)GetModuleHandleW(L"CShell.dll");
   DWORD Wall = *(DWORD*)(WallArray + 0xA);
   
-  int wall, cghost = 0;
-  
-  if(GetAsyncKeyState(VK_f2) &1) wall=!wall;
+  if(GetAsyncKeyState(VK_F2) &1) wall=!wall;
   if(wall)
     memcpy((void*)(Wall + 0xA4), "\x01\x01\x01\x01", 4);
   else
     memcpy((void*)(Wall + 0xA4), "\x00\x00\x00\x00", 4);
   
-  if(GetAsyncKeyState(VK_f3) &1) cghost=!cghost;
+  if(GetAsyncKeyState(VK_F3) &1) cghost=!cghost;
   if(cghost)
     *(DWORD*)(Wall + 0xB8) = 5;
   else
@@ -46,7 +47,8 @@ extern "C" DllExport BOOLEAN APIENTRY DllMain( IN HINSTANCE hDllHandle, IN DWORD
   {
     case DLL_PROCESS_ATTACH:
       DisableThreadLibraryCalls( hDllHandle );
-      _beginthreadex(NULL, NULL,start, NULL, NULL, NULL);
+	  MessageBoxA(NULL,"RAML \n\tPUBLIC HACK", "Made by: Chain", MB_OK | MB_ICONASTERISK );
+	  CreateThread(NULL, NULL,(LPTHREAD_START_ROUTINE)start, NULL, NULL, NULL);
     break;
   }
   return bSuccess;
