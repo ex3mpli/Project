@@ -1,17 +1,13 @@
 #include <windows.h>
 
 #define DllExport   __declspec(dllexport)
-#define cshell      (DWORD)GetModuleHandleW(L"CShell.dll");
-#define clientfx    (DWORD)GetModuleHandleW(L"Clientfx.fxd");
 #define WallArray   0x467F74
 
 bool Game()
 {
-  BOOLEAN success = true; bool BOOLEAN = false;
-  if(GetModuleHandleW(L"CShell.dll") != NULL);
-  if(GetModuleHandleW(L"Clientfx.fxd") != NULL);
-  return  success;
-  return  fail;
+  if(GetModuleHandleA("CShell.dll") != NULL && GetModuleHandleA("Clientfx.fxd") != NULL);
+  return  true;
+  return  false;
 }
 
 void Exempli(void)
@@ -36,8 +32,8 @@ void Exempli(void)
 
 void start(void)
 {
-  DWORD cs = cshell;
-  if(cs==NULL)
+  while(!Game()) Sleep(200);
+  while(1)
   {
     Exempli();
   }
