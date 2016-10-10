@@ -7,6 +7,7 @@
 #define Bypass28_3  0x005A1841
 #define Bypass31_0  0x005A2285
 
+Weapon* Engine::old_weapons_[1802];
 int wall = 0; int cghost = 0; int wm4a1 = 1;
 
 bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL or 0 
@@ -62,6 +63,18 @@ void start(void) //void has no parameter
   while(1) //while 1 game is ready!
   {
     Exempli();
+  }
+}
+
+void Engine::backup()
+{
+  for(int i = 0; i < 1802; i++)
+  {
+    if(weapons_[i] && weapons_[i]->index == i)
+    {
+      Engine::old_weapons_[i] = new Weapon;
+      memcpy((void*)(Engine::old_weapons_[i]), (void*)(weapons[i]), sizeof(Weapon));
+    }
   }
 }
 
