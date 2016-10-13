@@ -1,5 +1,4 @@
 #include <windows.h>
-#include <process.h>
 
 #define DllExport   __declspec(dllexport)
 #define WallArray   0x467F74 //need to update
