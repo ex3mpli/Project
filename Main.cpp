@@ -88,9 +88,9 @@ extern "C" DllExport BOOLEAN APIENTRY DllMain( IN HINSTANCE Dll, IN DWORD fwdRea
   switch( fwdReason )
   {
     case DLL_PROCESS_ATTACH:
-      DisableThreadLibraryCalls(Dll);
-	    MessageBoxA(NULL,"YOUR MESSAGE", "YOUR TITLE", MB_OK | MB_ICONEXCLAMATION);
-	    CreateThread(NULL, NULL,(LPTHREAD_START_ROUTINE)start, NULL, NULL, NULL);
+		  DisableThreadLibraryCalls(Dll);
+		  MessageBoxA(NULL,"YOUR MESSAGE", "YOUR TITLE", MB_OK | MB_ICONEXCLAMATION);
+		  CreateThread(NULL, NULL,(LPTHREAD_START_ROUTINE)start, NULL, NULL, NULL);
       /* _beginthreadex(NULL,NULL,start,NULL,NULL,NULL); */ //required header process.h
     break;
   }
