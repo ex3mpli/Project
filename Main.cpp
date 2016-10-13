@@ -2,28 +2,35 @@
 #include <process.h>
 
 #define DllExport   __declspec(dllexport)
-#define WallArray   0x467F74
-#define WeaponMgr   0x1A16B2C
-#define Bypass28_3  0x005A1841
-#define Bypass31_0  0x005A2285
+#define WallArray   0x467F74 //need to update
+#define WeaponMgr   0x1A16B2C //need to update
+#define Bypass28_3  0x5A1841 //need to update
+#define Bypass31_0  0x5A2285 //need to update
 
-Weapon* Engine::old_weapons_[1802];
+typedef struct {
+    float damage;
+    int* orignal;
+} BACKUP;
+
+BACKUP Backup[1802]; //Weapon Count should be 1802
+bool init = false
+
 int wall = 0; int cghost = 0; int wm4a1 = 1;
 
 bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL or 0 
 {
   if(GetModuleHandleA("CShell.dll") != NULL && GetModuleHandleA("Clientfx.fxd") != NULL)
-  return  true;
-  return  false;
+  return  true; //return true if true
+  return  false; //return false if false
 }
 
-void Exempli(void) //void has no parameter
+void Exempli(void) //void has no parameter/value
 {
   DWORD cshell  = (DWORD)GetModuleHandleW(L"CShell.dll");
-  DWORD bypass8 = DWORD(cshell + Bypass28_3);
-  DWORD bypass3 = DWORD(cshell + Bypass31_0);
-  DWORD m4a1    = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*11));
-  DWORD m4a1v   = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*856));
+  DWORD bypass8 = DWORD(cshell + 0x5A1841);
+  DWORD bypass3 = DWORD(cshell + 0x5A2285);
+  DWORD m4a1    = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*11)); //M4A1
+  DWORD m4a1v   = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*856)); //M4
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
   
   if(bypass8!=NULL)
@@ -36,11 +43,20 @@ void Exempli(void) //void has no parameter
     memcpy((void*)(bypass3), "\xEB\x48",2);
   }
   
-  if(wm4a1)
+  if(!init)
   {
     for(int i = 1; i < 1802; ++i)
     {
       *(DWORD*)(m4a1 + i) = *(DWORD*)(m4a1v + i);
+      init = true;
+    }
+  }
+  else
+  {
+    for(int i = 1; i < 1802; ++i)
+    {
+      *(DWORD*)(m4a1 + i) = Backup[i].original;
+      init = true;
     }
   }
   
@@ -57,24 +73,12 @@ void Exempli(void) //void has no parameter
     *(DWORD*)(Wall + 0xB8) = 14;
 }
 
-void start(void) //void has no parameter
+void start(void) //void has no parameter/value
 {
   while(!Game()) Sleep(200); //while game doesn't ready sleep 200
   while(1) //while 1 game is ready!
   {
     Exempli();
-  }
-}
-
-void Engine::backup()
-{
-  for(int i = 0; i < 1802; i++)
-  {
-    if(weapons_[i] && weapons_[i]->index == i)
-    {
-      Engine::old_weapons_[i] = new Weapon;
-      memcpy((void*)(Engine::old_weapons_[i]), (void*)(weapons[i]), sizeof(Weapon));
-    }
   }
 }
 
