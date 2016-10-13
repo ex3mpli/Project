@@ -9,7 +9,7 @@
 
 typedef struct {
     float damage;
-    int* orignal;
+    int orignal;
 } BACKUP;
 
 BACKUP Backup[1802]; //Weapon Count should be 1802
