@@ -1,10 +1,10 @@
 #include <windows.h>
 
 #define DllExport   __declspec(dllexport)
-#define WallArray   0x467F74 //need to update
+#define WallArray   0x469404 //need to update
 #define WeaponMgr   0x1ACB8A4 //need to update
-#define Bypass28_3  0x5AEB0F //need to update
-#define Bypass31_0  0x5AF51E //need to update
+#define Bypass28    0x5AEB15 //need to update
+#define Bypass31    0x5AF4F3 //need to update
 
 typedef struct {
     float damage;
@@ -26,8 +26,8 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
 void Exempli(void) //void has no parameter/value
 {
   DWORD cshell  = (DWORD)GetModuleHandleW(L"CShell.dll");
-  DWORD bypass8 = DWORD(cshell + 0x5AEB0F);
-  DWORD bypass3 = DWORD(cshell + 0x5AF51E);
+  DWORD bypass8 = DWORD(cshell + 0x5AEB15);
+  DWORD bypass3 = DWORD(cshell + 0x5AF4F3);
   DWORD m4a1    = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*11)); //M4A1
   DWORD m4a1v   = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*856)); //M4
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
