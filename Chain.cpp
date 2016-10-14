@@ -3,6 +3,9 @@
 #define DllExport   __declspec(dllexport)
 #define WallArray         0x469404  //need to update
 #define dwPlayerPointer   0xC857A0
+#define DamageZone        0xA02C2C
+#define DamagePerSec      0xA02C1C
+#define DamagePerMeter    0x1ACB884
 
 
 typedef struct {
@@ -29,8 +32,11 @@ void Exempli(void) //void has no parameter/value
   DWORD ModelN  = *(DWORD*)(cshell + Model);
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
   PFLOAT wtw1 = *(PFLOAT)( dwPlayerPointer + 0x440);
-	PFLOAT wtw2 = *(PFLOAT)( dwPlayerPointer + 0x444);
-	PFLOAT wtw3 = *(PFLOAT)( dwPlayerPointer + 0x448);
+  PFLOAT wtw2 = *(PFLOAT)( dwPlayerPointer + 0x444);
+  PFLOAT wtw3 = *(PFLOAT)( dwPlayerPointer + 0x448);
+  DWORD nDamageZone = *(DWORD*)(cshell + 0xA02C2C);
+  DWORD nDamagePerSec = *(DWORD*)(cshell + 0xA02C1C);
+  DWORD nDamagePerMeter = *(DWORD*)(cshell + 0x1ACB884);
   
   if(GetAsyncKeyState(VK_F2) &1) wall=!wall;
   if(wall)
@@ -56,6 +62,21 @@ void Exempli(void) //void has no parameter/value
         wtw = true;
 			}
     }
+    
+   if(nDamageZone)
+   {
+     *(float*)(Cshell + 0xA02C2C) = 0.0f;
+   }
+   
+   if(nDamagePerSec)
+   {
+     *(float*)(Cshell + 0xA02C2C) = 0.0f;
+   }
+   
+   if(nDamagePerMeter)
+   {
+     *(float*)(Cshell + 0xA02C2C) = 0.0f;
+   }
   }
 
 void start(void) //void has no parameter/value
