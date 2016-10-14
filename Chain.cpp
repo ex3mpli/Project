@@ -1,8 +1,9 @@
 #include <windows.h>
 
 #define DllExport   __declspec(dllexport)
-#define WallArray   0x469404  //need to update
-#define ModelNode   0x1ACB7D4 //need to update
+#define WallArray         0x469404  //need to update
+#define dwPlayerPointer   0xC857A0
+
 
 typedef struct {
     float damage;
@@ -12,6 +13,7 @@ typedef struct {
 BACKUP Backup[1802];
 
 int wall = 0; int cghost = 0;
+bool wtw = 0;
 
 bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL or 0 
 {
@@ -23,8 +25,12 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
 void Exempli(void) //void has no parameter/value
 {
   DWORD cshell  = (DWORD)GetModuleHandleW(L"CShell.dll");
+  DWORD dwPlayerPointer = (DWORD*)(CShell + 0xC857A0 + 0x70);
   DWORD ModelN  = *(DWORD*)(cshell + Model);
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
+  PFLOAT wtw1 = *(PFLOAT)( dwPlayerPointer + 0x440);
+	PFLOAT wtw2 = *(PFLOAT)( dwPlayerPointer + 0x444);
+	PFLOAT wtw3 = *(PFLOAT)( dwPlayerPointer + 0x448);
   
   if(GetAsyncKeyState(VK_F2) &1) wall=!wall;
   if(wall)
@@ -38,15 +44,19 @@ void Exempli(void) //void has no parameter/value
   else
     *(DWORD*)(Wall + 0xB8) = 14;
   
-  if(ModelN!=NULL)
+  if(wtw)
   {
-    for(int i = 0; i < 1802; i++)
-      for(int x = 0; x < 3; x++)
-      {
-        *(float*)((ModelN + 0x54 +  x*4 ) + (i*0x9c)) = 250.0f;
-      }
+    if()
+    {
+      if(GetAsyncKeyState('V'))
+			{
+			  if (*wtw1) *wtw1 = 56;
+			  if (*wtw2) *wtw2 = 140;
+			  if (*wtw3) *wtw3 = 56;
+        wtw = true;
+			}
+    }
   }
-}
 
 void start(void) //void has no parameter/value
 {
