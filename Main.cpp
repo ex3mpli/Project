@@ -1,14 +1,15 @@
 #include <windows.h>
 
 #define DllExport   __declspec(dllexport)
-#define WallArray   0x469404 //need to update
+#define WallArray   0x469404  //need to update
 #define WeaponMgr   0x1ACB8A4 //need to update
-#define Bypass28    0x5AEB15 //need to update
-#define Bypass31    0x5AF4F3 //need to update
+#define Bypass28    0x5AEB15  //need to update
+#define Bypass31    0x5AF4F3  //need to update
+#define ModelNode   0x1ACB7D4 //need to update
 
 typedef struct {
     float damage;
-    int orignal;
+    int original;
 } BACKUP;
 
 BACKUP Backup[1802];
@@ -25,6 +26,7 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
 void Exempli(void) //void has no parameter/value
 {
   DWORD cshell  = (DWORD)GetModuleHandleW(L"CShell.dll");
+  DWORD ModelN  = *(DWORD*)(cshell + Model);
   DWORD bypass8 = DWORD(cshell + 0x5AEB15);
   DWORD bypass3 = DWORD(cshell + 0x5AF4F3);
   DWORD m4a1    = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*11)); //M4A1
@@ -60,6 +62,15 @@ void Exempli(void) //void has no parameter/value
     *(DWORD*)(Wall + 0xB8) = 5;
   else
     *(DWORD*)(Wall + 0xB8) = 14;
+  
+  if(ModelN!=NULL)
+  {
+    for(int i = 0; i < 1802; i++)
+      for(int x = 0; x < 3; x++)
+      {
+        *(float*)((ModelN + 0x54 +  x*4 ) + (i*0x9c)) = 250.0f;
+      }
+  }
 }
 
 void start(void) //void has no parameter/value
