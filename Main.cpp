@@ -2,16 +2,16 @@
 
 #define DllExport   __declspec(dllexport)
 #define WallArray   0x467F74 //need to update
-#define WeaponMgr   0x1A16B2C //need to update
-#define Bypass28_3  0x5A1841 //need to update
-#define Bypass31_0  0x5A2285 //need to update
+#define WeaponMgr   0x1ACB8A4 //need to update
+#define Bypass28_3  0x5AEB0F //need to update
+#define Bypass31_0  0x5AF51E //need to update
 
 typedef struct {
     float damage;
     int orignal;
 } BACKUP;
 
-BACKUP Backup[1802]; //Weapon Count should be 1802
+BACKUP Backup[1802];
 bool init = false
 
 int wall = 0; int cghost = 0; int wm4a1 = 1;
@@ -26,8 +26,8 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
 void Exempli(void) //void has no parameter/value
 {
   DWORD cshell  = (DWORD)GetModuleHandleW(L"CShell.dll");
-  DWORD bypass8 = DWORD(cshell + 0x5A1841);
-  DWORD bypass3 = DWORD(cshell + 0x5A2285);
+  DWORD bypass8 = DWORD(cshell + 0x5AEB0F);
+  DWORD bypass3 = DWORD(cshell + 0x5AF51E);
   DWORD m4a1    = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*11)); //M4A1
   DWORD m4a1v   = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*856)); //M4
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
