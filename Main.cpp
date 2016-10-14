@@ -12,7 +12,6 @@ typedef struct {
 } BACKUP;
 
 BACKUP Backup[1802];
-bool init = false
 
 int wall = 0; int cghost = 0; int wm4a1 = 1;
 
@@ -29,7 +28,7 @@ void Exempli(void) //void has no parameter/value
   DWORD bypass8 = DWORD(cshell + 0x5AEB15);
   DWORD bypass3 = DWORD(cshell + 0x5AF4F3);
   DWORD m4a1    = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*11)); //M4A1
-  DWORD m4a1v   = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*856)); //M4
+  DWORD m4a1v   = *(DWORD*)((*(DWORD*)(cshell+WeaponMgr))+(4*856)); //M4A1 Iron Beast
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
   
   if(bypass8!=NULL)
@@ -42,20 +41,11 @@ void Exempli(void) //void has no parameter/value
     memcpy((void*)(bypass3), "\xEB\x48",2);
   }
   
-  if(!init)
+  if(wm4a1)
   {
     for(int i = 1; i < 1802; ++i)
     {
       *(DWORD*)(m4a1 + i) = *(DWORD*)(m4a1v + i);
-      init = true;
-    }
-  }
-  else
-  {
-    for(int i = 1; i < 1802; ++i)
-    {
-      *(DWORD*)(m4a1 + i) = Backup[i].original;
-      init = true;
     }
   }
   
