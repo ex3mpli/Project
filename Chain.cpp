@@ -65,17 +65,17 @@ void Exempli(void) //void has no parameter/value
     
    if(nDamageZone)
    {
-     *(float*)(Cshell + 0xA02C2C) = 0.0f;
+     *(float*)(cshell + 0xA02C2C) = 0.0f;
    }
    
    if(nDamagePerSec)
    {
-     *(float*)(Cshell + 0xA02C2C) = 0.0f;
+     *(float*)(cshell + 0xA02C2C) = 0.0f;
    }
    
    if(nDamagePerMeter)
    {
-     *(float*)(Cshell + 0xA02C2C) = 0.0f;
+     *(float*)(cshell + 0xA02C2C) = 0.0f;
    }
   }
 
