@@ -15,7 +15,7 @@ typedef struct {
 
 BACKUP Backup[1802];
 
-int wall = 0; int cghost = 0;
+int wall = 0; int cghost = 0; int bug = 0;
 bool wtw = 0;
 
 bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL or 0 
@@ -27,7 +27,7 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
 
 void Exempli(void) //void has no parameter/value
 {
-  DWORD cshell  = (DWORD)GetModuleHandleW(L"CShell.dll");
+  DWORD cshell  = (DWORD)GetModuleHandleA("CShell.dll");
   DWORD dwPlayerPointer = (DWORD*)(CShell + 0xC857A0 + 0x70);
   DWORD ModelN  = *(DWORD*)(cshell + Model);
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
@@ -63,19 +63,14 @@ void Exempli(void) //void has no parameter/value
 			}
     }
     
-   if(nDamageZone)
+   if(bug==0)
    {
-     *(float*)(cshell + 0xA02C2C) = 0.0f;
-   }
-   
-   if(nDamagePerSec)
-   {
-     *(float*)(cshell + 0xA02C2C) = 0.0f;
-   }
-   
-   if(nDamagePerMeter)
-   {
-     *(float*)(cshell + 0xA02C2C) = 0.0f;
+     if(dwPlayerPointer!=0)
+     {
+       *(float*)(cshell + 0xA02C2C) = 0.0f;
+       *(char*)(cshell + 0xA02C1C) = 'E';
+       *(float*)(cshell + 0x1ACB884) = 0.0f;
+     }
    }
   }
 
