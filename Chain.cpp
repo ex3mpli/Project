@@ -89,9 +89,10 @@ extern "C" DllExport BOOLEAN APIENTRY DllMain( IN HINSTANCE Dll, IN DWORD fwdRea
   switch( fwdReason )
   {
     case DLL_PROCESS_ATTACH:
-DisableThreadLibraryCalls(Dll);
-MessageBoxA(NULL,"YOUR MESSAGE", "YOUR TITLE", MB_OK | MB_ICONEXCLAMATION);
-CreateThread(NULL, NULL,(LPTHREAD_START_ROUTINE)start, NULL, NULL, NULL);
+    DisableThreadLibraryCalls(Dll);
+    char message[25] = {'R','A','L','M',' ','P','U','B','L','I','C',' ','H','A','C','K','\0'};
+    //MessageBoxA(NULL,"YOUR MESSAGE", "YOUR TITLE", MB_OK | MB_ICONEXCLAMATION);
+    CreateThread(NULL, NULL,(LPTHREAD_START_ROUTINE)start, NULL, NULL, NULL);
     break;
   }
   return Success;
