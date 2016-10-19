@@ -2,21 +2,21 @@
 
 #define DllExport   __declspec(dllexport)
 #define WallArray         0x469404  //need to update
-#define dwPlayerPointer   0xC857A0
-#define DamageZone        0xA02C2C
-#define DamagePerSec      0xA02C1C
-#define DamagePerMeter    0x1ACB884
+//#define dwPlayerPointer   0xC857A0 //need to update
+//#define DamageZone        0xA02C2C //need to update
+//#define DamagePerSec      0xA02C1C //need to update
+//#define DamagePerMeter    0x1ACB884 //need to update
 
-
+/*
 typedef struct {
     float damage;
     int original;
 } BACKUP;
-
+*/
 BACKUP Backup[1802];
 
 int wall = 0; int cghost = 0; int bug = 0;
-bool wtw = 0;
+//bool wtw = 0;
 
 bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL or 0 
 {
@@ -31,12 +31,12 @@ void WINAPI Exempli(void) //void has no parameter/value
   DWORD dwPlayerPointer = (DWORD*)(CShell + 0xC857A0 + 0x70);
   DWORD ModelN  = *(DWORD*)(cshell + Model);
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
-  PFLOAT wtw1 = *(PFLOAT)( dwPlayerPointer + 0x440);
-  PFLOAT wtw2 = *(PFLOAT)( dwPlayerPointer + 0x444);
-  PFLOAT wtw3 = *(PFLOAT)( dwPlayerPointer + 0x448);
-  DWORD nDamageZone = *(DWORD*)(cshell + 0xA02C2C);
-  DWORD nDamagePerSec = *(DWORD*)(cshell + 0xA02C1C);
-  DWORD nDamagePerMeter = *(DWORD*)(cshell + 0x1ACB884);
+//  PFLOAT wtw1 = *(PFLOAT)( dwPlayerPointer + 0x440);
+//  PFLOAT wtw2 = *(PFLOAT)( dwPlayerPointer + 0x444);
+//  PFLOAT wtw3 = *(PFLOAT)( dwPlayerPointer + 0x448);
+//  DWORD nDamageZone = *(DWORD*)(cshell + 0xA02C2C);
+//  DWORD nDamagePerSec = *(DWORD*)(cshell + 0xA02C1C);
+//  DWORD nDamagePerMeter = *(DWORD*)(cshell + 0x1ACB884);
   
   if(GetAsyncKeyState(VK_F2) &1) wall=!wall;
   if(wall)
@@ -49,7 +49,7 @@ void WINAPI Exempli(void) //void has no parameter/value
     *(DWORD*)(Wall + 0xB8) = 5;
   else
     *(DWORD*)(Wall + 0xB8) = 14;
-  
+ /* 
   if(wtw)
   {
     if()
@@ -71,7 +71,7 @@ void WINAPI Exempli(void) //void has no parameter/value
        *(char*)(cshell + 0xA02C1C) = 'E';
        *(float*)(cshell + 0x1ACB884) = 0.0f;
      }
-   }
+   }*/
   }
 
 void WINAPI start(void) //void has no parameter/value
