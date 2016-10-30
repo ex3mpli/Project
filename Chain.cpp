@@ -2,18 +2,7 @@
 
 #define DllExport   __declspec(dllexport)
 #define WallArray         0x469404  //need to update
-//#define dwPlayerPointer   0xC857A0 //need to update
-//#define DamageZone        0xA02C2C //need to update
-//#define DamagePerSec      0xA02C1C //need to update
-//#define DamagePerMeter    0x1ACB884 //need to update
 
-/*
-typedef struct {
-    float damage;
-    int original;
-} BACKUP;
-*/
-BACKUP Backup[1802];
 
 int wall = 0; int cghost = 0; int bug = 0;
 //bool wtw = 0;
@@ -91,7 +80,6 @@ extern "C" DllExport BOOLEAN APIENTRY DllMain( IN HINSTANCE Dll, IN DWORD fwdRea
     case DLL_PROCESS_ATTACH:
     DisableThreadLibraryCalls(Dll);
     char message[25] = {'R','A','L','M',' ','P','U','B','L','I','C',' ','H','A','C','K','\0'};
-    //MessageBoxA(NULL,"YOUR MESSAGE", "YOUR TITLE", MB_OK | MB_ICONEXCLAMATION);
     CreateThread(NULL, NULL,(LPTHREAD_START_ROUTINE)start, NULL, NULL, NULL);
     break;
   }
