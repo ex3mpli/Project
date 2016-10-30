@@ -2,8 +2,8 @@
 <body>
 <h3><b>FEATURES</b></h3>
 <ul>
-<li>WALL HACK</li>
-<li>SEE GHOST</li>
+<li>Wall Hack</li>
+<li>See Ghost</li>
 </ul>
 </body>
 </html>
