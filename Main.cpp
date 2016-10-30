@@ -23,7 +23,7 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
   return  false; //return false if false
 }
 
-void Exempli(void) //void has no parameter/value
+void WINAPI Exempli(void) //void has no parameter/value
 {
   DWORD cshell  = (DWORD)GetModuleHandleW(L"CShell.dll");
   DWORD ModelN  = *(DWORD*)(cshell + Model);
@@ -73,7 +73,7 @@ void Exempli(void) //void has no parameter/value
   }
 }
 
-void start(void) //void has no parameter/value
+void WINAPI start(void) //void has no parameter/value
 {
   while(!Game()) Sleep(200); //while game doesn't ready sleep 200
   while(1) //while 1 game is ready!
