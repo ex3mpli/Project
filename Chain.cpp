@@ -2,8 +2,8 @@
 #include <process.h>
 
 #define DllExport   __declspec(dllexport)
-#define WallArray       0x469404  //need to update
-
+#define WallArray       0x00B8AFD4  //need to update
+#define ModelNode       0x01ACB7D4  //need to update
 
 int wall = 0; int cghost = 0;
 
@@ -17,6 +17,7 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
 void Exempli(void) //void has no parameter/value
 {
   DWORD cshell  = (DWORD)GetModuleHandleA("CShell.dll");
+  DWORD Mnode   = *(DWORD*)(cshell + 0x01ACB7D4);
   DWORD Wall    = *(DWORD*)(WallArray + 0xA);
   
   if(GetAsyncKeyState('T') &1) wall=!wall;
@@ -30,6 +31,16 @@ void Exempli(void) //void has no parameter/value
     *(DWORD*)(Wall + 0xB8) = 5;
   else
     *(DWORD*)(Wall + 0xB8) = 14;
+  if(Mnode)
+  {
+    for(int i = 0; i < 87; i++)
+    {
+      for(int x = 0; x < 3; x++)
+      {
+        *(float*)((pNodeMgr + 0x38 + x*4 ) + (i*0x9c)) = 110;
+      }
+    }
+  }
   }
 
 void start(void) //void has no parameter/value
