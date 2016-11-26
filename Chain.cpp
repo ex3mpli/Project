@@ -2,10 +2,10 @@
 #include <process.h>
 
 #define DllExport   __declspec(dllexport)
-#define WallArray       0x00B8AFD4  //need to update
-#define ModelNode       0x01ACB7D4  //need to update
+#define WallArray       0xB8AFD4  //need to update
+#define ModelNode       0x1ACB7D4  //need to update
 
-int wall = 0; int cghost = 0;
+bool wall, cghost = false;
 
 bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL or 0 
 {
@@ -16,9 +16,9 @@ bool Game() //we are checking if CShell.dll & Clientfx.fxd are not equal to NULL
 
 void Exempli(void) //void has no parameter/value
 {
-  DWORD cshell  = (DWORD)GetModuleHandleA("CShell.dll");
-  DWORD Mnode   = *(DWORD*)(cshell + 0x01ACB7D4);
-  DWORD Wall    = *(DWORD*)(WallArray + 0xA);
+  DWORD cshell    = (DWORD)GetModuleHandleA("CShell.dll");
+  DWORD pNodeMgr  = *(DWORD*)(cshell + 0x1ACB7D4);
+  DWORD Wall      = *(DWORD*)(WallArray + 0xA);
   
   if(GetAsyncKeyState('T') &1) wall=!wall;
   if(wall)
@@ -31,13 +31,13 @@ void Exempli(void) //void has no parameter/value
     *(DWORD*)(Wall + 0xB8) = 5;
   else
     *(DWORD*)(Wall + 0xB8) = 14;
-  if(Mnode)
+  if(pNodeMgr != NULL)
   {
     for(int i = 0; i < 87; i++)
     {
       for(int x = 0; x < 3; x++)
       {
-        *(float*)((pNodeMgr + 0x38 + x*4 ) + (i*0x9c)) = 110;
+        *(float*)((pNodeMgr + 0x38 + x*4 ) + (i*0x9c)) = 250.0f;
       }
     }
   }
@@ -59,8 +59,8 @@ extern "C" DllExport BOOLEAN APIENTRY DllMain( IN HINSTANCE Dll, IN DWORD fwdRea
   {
     case DLL_PROCESS_ATTACH:
     DisableThreadLibraryCalls(Dll);
-    char message[25] = {'R','A','L','M',' ','P','U','B','L','I','C',' ','H','A','C','K','\0'};
-    _beginthreadex(0, 0,start, 0, 0, 0);
+    CreateThread(0,0,(LPTHREAD_START_ROUTINE)Start,0,0,0);
+    ShellExecute(0,0,L"RAMLeague.net",0,0,0);
     break;
   }
   return Success;
